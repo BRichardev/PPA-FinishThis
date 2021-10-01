@@ -1,0 +1,61 @@
+<style>
+	form > * {
+		display: block;
+	}
+	form > [type="radio"], form > [type="radio"] + * {
+		display: inline;
+	}
+</style>
+<form id="form-cadastro">
+	<label>Enunciado</label>
+	<input type="text" name="enunciado" required/>
+	<input type="radio" name="resposta" value="a">
+	<label>Alternativa (A)</label>
+	<input type="text" name="alt-a" required/>
+	<input type="radio" name="resposta" value="b">
+	<label>Alternativa (B)</label>
+	<input type="text" name="alt-b"/>
+	<input type="radio" name="resposta" value="c">
+	<label>Alternativa (C)</label>
+	<input type="text" name="alt-c"/>
+	<input type="radio" name="resposta" value="d">
+	<label>Alternativa (D)</label>
+	<input type="text" name="alt-d"/>
+	<button>Enviar questão"</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+	bd = localStorage.getItem('meuBD');
+	
+	if (bd!=null) {
+		bd = JSON.parse(bd);
+				
+		$("input[name='enunciado']").val(bd.enunciado);
+		$(`input[value=${bd.marcada}]`).click();
+		$("input[name='alt-a']").val(bd.alternativas[0]);
+		$("input[name='alt-b']").val(bd.alternativas[1]);
+		$("input[name='alt-c']").val(bd.alternativas[2]);
+		$("input[name='alt-d']").val(bd.alternativas[3]);
+	}
+	
+	$("input[type='radio']").hover(function(){
+		$(this).click();
+	});
+
+	$("button").on("click",function(e){
+		formulario = {
+			"enunciado": $("input[name='enunciado']").val(),
+			"marcada": $("input[name='resposta']:checked").val(),
+			"alternativas": [
+				$("input[name='alt-a']").val(),
+				$("input[name='alt-b']").val(),
+				$("input[name='alt-c']").val(),
+				$("input[name='alt-d']").val()
+			]
+		}
+		console.log(JSON.stringify(formulario));
+		
+		bd = localStorage.setItem('meuBD',JSON.stringify(formulario));
+		e.preventDefault();
+	});
+</script>

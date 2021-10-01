@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+   
+   <!-- Google Fonts -->
+    <link href="https://fonts.google.com/specimen/Roboto" rel="stylesheet">
+
+    <title img src="Visto.png" alt="..." >Projeto</title>
+    <style>
+    
+     body {
+          background-color:#F8F7EE;
+     }
+     
+     header{
+            font-family: 'Roboto', serif;
+            background-color: #2F436B;
+            min-height: 115px;
+            Width:100%;
+            font-size:30px;
+            text-align:center;
+            display: flex;
+            align-items:center;
+            position:fixed;
+            top:0;
+            right:0;
+            z-index:1;
+            
+        }
+        header p:hover{
+            color:#37756B;
+        }
+        
+     
+        @media (min-width: 1000px){
+        header{
+            display: grid;
+			grid-template-columns: auto;
+			grid-template-areas: "menu0 menu5 menu"
+        }
+        
+         label[for="bt_menu"]{
+              padding:5px;
+            background-color:#2F436B;
+            color:#fff;
+            text-align:center;
+            font-size:30px;
+            cursor:pointer;
+            Width:50px;
+            height:50px;
+          }
+        
+        #bt_menu{
+             display:none;
+        }
+        
+        label[for="bt_menu"]{
+            display:none;
+        }
+        
+     }
+     
+     @media (max-width: 1000px){
+        header{
+            display: grid;
+			grid-template-columns: auto;
+			grid-template-areas: "menu0" "menu" "menu5"
+        }
+        label[for="bt_menu"]{
+            display:block;
+        }
+        
+        #bt_menu{
+             display:none;
+        }
+        
+        #bt_menu:checked ~ .menu{
+        margin-left:0;
+        }
+        
+        .menu{
+            margin-left:-1000px;
+            transition: all .2s;
+        }
+        
+         label[for="bt_menu"]{
+              padding:5px;
+            background-color: #2F436B;
+            color:#fff;
+            text-align:center;
+            font-size:30px;
+            cursor:pointer;
+            Width:50px;
+            height:50px;
+          }
+     }
+     
+     .menu {
+          Width:300px;
+         display:flex;
+     }
+    
+        
+        header img{
+              Width:250px;
+         }
+         
+         section img{
+             Width:30px;
+             height:30px;
+         }
+        
+        .fundo{
+             font-family: 'Roboto', sans-serif;
+             Width: 100%;
+             min-height:829px;
+             text-shadow: 2px 2px 2px Gray, 
+                          2px 2px 2px Gray;
+             background-image:url('../projeto/One.jpg');
+             background-repeat:no-repeat;
+             background-attachment:scroll;
+             background-size:cover;
+             background-position:center;
+             padding:90px;
+             text-align:center;
+             font-size:30px;
+        }
+        @media (min-width: 900px){
+            
+                     .fundo {margin-top:100px;}
+        }
+        
+        @media (max-width: 900px){
+             .fundo {margin-top:240px;}
+        }
+        
+        
+        #Font{
+            font-size:70px;
+            position:relative;
+        }
+        .top{
+            margin-top:80px;
+        }
+        
+        .segunda{
+            font-family: 'Roboto', sans-serif;
+            font-size:50px;
+            text-align:center;
+            padding-top:120px;
+            color:#3B7046;
+        }
+        
+        .dobra2{
+            Width:100%;
+            min-height: 829px;
+			font-family: 'Roboto', serif;
+            background-color:#F8F7EE;
+            align-items:center;
+            font-size:25px;
+            float:left;
+        }
+        
+        @media (min-width: 900px){
+	    .dobra2{
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-areas:"d1 d2" "d3 d4"  ;
+		}
+        }
+        
+        @media (max-width: 900px ){
+	    .dobra2{
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-areas: "d1" "d2" "d3" "d4"  ;
+			
+		}
+         }
+                    
+        [anima-start]{
+            opacity: 0;
+                    transition: .5s;
+        }
+        
+         [anima-start="height"]{
+            transform: translate(0, -10%); 
+        }
+        
+        [anima-start].animacao{
+            opacity: 1;
+             transform: translate(0, 0);
+        }
+        
+         .dobra2 img{
+			Width:30px;
+            height:30px;
+		}
+		
+		.dobra2 p{
+		    font-size:60px;
+		}
+         
+         
+         .dobra3{
+            font-family: 'Roboto', sans-serif;
+            font-size:25px;
+            Width: 100%;
+            min-height:829px;
+            background-color:#F8F7EE;
+            text-align:center;
+             padding-top:800px;
+         }
+         
+         #t1{
+             font-size:70px;
+             text-align:center;
+         }
+         
+          #t3{
+              padding-bottom:100px;
+          }
+          
+          .final{
+              background-color:white;
+              text-align: center;
+              width:100%;
+              min-height:150px;
+          }
+        
+    </style>
+  </head>
+  
+  <body>
+       
+    <header class="fixed">
+        <input type="checkbox" id="bt_menu">
+            <label for="bt_menu">&#9776;</label>
+         
+    
+        <strong id="menu0"><a class="nav-link" href="https://addcosta.info/alunos/201818360010/projeto/projeto.html"><img src="Logo2.png" alt="..."></a></strong>
+        
+         <div id="menu5" >
+             
+              <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Digite..." aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+              </form>
+              </div>
+
+        
+             <div class="menu col-md-12 col-sm-12 col-xs-12 col-lg-3">
+                          <div id="menu1"><a class="nav-link" href="https://api.whatsapp.com/send?phone=5575998715270" style="color:#DCE6DF"><p>Contato</p></a></div>
+            
+                             <div id="menu2"><a class="nav-link" href="https://cupulatrovao.com.br/categoria/noticia/" style="color:#DCE6DF"><p>Novidades</p></a></div>
+             
+                            <div id="menu4"> <a class="nav-link" href="Bd.html" style="color:#DCE6DF"><p>Cadastro</p></a></div>
+                            
+            </div>
+                   
+    </header>
+ 
+    <!--Primeira dobra-->
+   
+    <section>
+   
+    <div class="fundo" style="color:#FFFFFF;">
+        
+         <div id="Font"><p>Saiba um mais sobre mangás</p></div>
+         
+         <div class="container">
+         <h3>Lista de sites para ler mangá:</h3> <br/>
+            <div><h3><img src="Visto.png" alt="..." >
+                Crunchyroll Manga</h3></div>
+            <div><h3><img src="Visto.png" alt="..." >
+                MangaToon</h3></div>
+            <div><p><img src="Visto.png" alt="..." >
+                Comic Walker</p></div>
+            <div><h3><img src="Visto.png" alt="..." >
+                Mangá Livre</h3></div>
+            <div><h3><img src="Visto.png" alt="..." >
+                Comixology</h3></div>
+                <div><h3><img src="Visto.png" alt="..." >
+                Webtoon</h3></div>
+                
+            </div>
+            </div>
+       </section>
+    
+ 
+    <!--Segunda dobra-->
+    
+        <div class="segunda" anima-start="height"><p><b>Alguns Tipos de Mangá</b></p></div>
+        
+        <div class="container">
+        <div class="dobra2">
+            
+    <div class="pt1">
+        <div id="d1" class="col-12" anima-start="height"><img src="Visto.png" alt="..." >
+        Kodomo: São os mangás voltados para o público infantil (kodomo significa, literalmente, criança). Geralmente trazem histórias cômicas recheadas de lições de moral e ensinamentos.
+        </div><br/>
+
+        <div id="d2" class="col-12" anima-start="height"><img src="Visto.png" alt="..." >
+        Seinen: São séries de mangá voltadas para o público masculino adulto. Em japonês, a palavra "seinen" significa "jovem", apesar de também ser usada para descrever o público-alvo de revistas de mangás destinadas a homens de 20 a 50 anos.
+        </div><br/>
+    </div>
+        
+     <div class="pt2">
+        <div id="d3" class="col-12" anima-start="height"><img src="Visto.png" alt="..." >
+        Shonen: É uma categoria demográfica direcionada ao público adolescente. Um anime ou mangá Shonen pode ser reconhecido facilmente pelas lutas e personagens poderosos. 
+        </div><br/>
+     
+ 
+        <div id="d4" class="col-12" anima-start="height"><img src="Visto.png" alt="..." >
+        Dōjin: O termo é usado para se referir a publicaÇões de amadores, mas não se limitando a mangá. Alguns artistas profissionais fazem publicações desse tipo para fugir das publicações regulares da indústria e apresentar um papel mais pessoal.
+        </div>
+        </div>
+    </div>
+    </div>
+    
+         <!--Terceira dobra-->
+        
+        <article class="dobra3">
+        
+        <div class="container">
+            
+            <div id="t1" anima-start="height"><p>Os melhores sites pra comprar mangás</p>
+        </div><br/>
+        
+         <div id="t2" anima-start="height"><p>Amazon: Sim meus amigos, a Amazon. Essa megastore é uma das maiores do pais, fazendo entregas rápidas e com fretes baixos (depende da região que você mora). Ela tem um grande acervo de mangás publicados dentro e fora do pais, fazendo assim uma boa escolha para quem quer comprar mangás lançados em outros países.
+        </p>
+        </div><br/>
+        
+         <div id="t3" anima-start="height"><p>
+        Saraiva: Com uma quantia enorme de mangás a venda, a Saraiva é uma das melhores megastores do Brasil. E ela tem dois diferenciais da Amazon, 1° – você pode pedir que eles entregarem em uma de suas livrarias, assim você não paga frete algum. 2° – Eles aceitam pagamento no boleto, mas esse é um tópico que eu vou falar abaixo. Diferente da Amazon, a Saraiva tem livrarias e não atende só pela internet, oque acaba sendo um atrativo a mais para quem gosta de ver o produto antes de comprar.
+        </p>
+        </div><br/>
+        </div>
+        </article>
+        
+        <foter>
+                       
+                        <div class= "final">
+                            <div class= "final1">
+                          <div><a class="nav-link" href="https://api.whatsapp.com/send?phone=5575998715270" style="color:#DCE6DF"><p>Contato</p></a></div>
+            
+                             <div><a class="nav-link" href="https://cupulatrovao.com.br/categoria/noticia/" style="color:#DCE6DF"><p>Novidades</p></a></div>
+             
+                            <div> <a class="nav-link" href="Bd.html" style="color:#DCE6DF"><p>Cadastro</p></a></div>
+                            </div>
+                        </div>
+                </foter>
+        
+        
+        
+        <script>
+       
+    (function() {        
+       const elementos=document.querySelectorAll('[anima-start]');
+        const animacaoClass='animacao';
+            
+        function animaScroll(){
+        const topoPaginaNaJanela=window.pageYOffset+((window.innerHeight*3)/4);
+            elementos.forEach(function(elemento){
+        if(topoPaginaNaJanela > elemento.offsetTop){
+            elemento.classList.add(animacaoClass);
+        }else{
+            elemento.classList.remove(animacaoClass);
+        }
+        });
+        }
+            
+        if(elementos.length){
+         window.addEventListener('scroll',function(){
+            animaScroll();
+        })
+        }
+          }());
+       
+        </script>
+ 
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  </body>
+</html>

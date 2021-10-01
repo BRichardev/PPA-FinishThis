@@ -1,0 +1,85 @@
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+img{
+    filter: blur(2px) 
+}
+.fundo{
+    background-image:url('../projeto/On.jpg');
+    background-size:cover;
+    min-height:100%;
+    min-Width:100%;
+        padding-top:10vh;
+}
+	form > * {
+		display: block;
+	}
+	
+	fieldset{
+	text-align: center ;
+	background-color:white;
+	margin-left:auto;
+    margin-right:auto;
+    min-height:25%;
+    min-Width:15%;
+    border-radius:10px;
+    background-color: #2F436B;
+    color:white;
+	}
+	h4{
+	    padding-top:10px;
+	}
+	
+	#nome, #emaill, #senha{
+	    min-Width:100%;
+	    
+	}
+	
+	</style>
+	<div class="fundo">
+<fieldset style="width:25%;">
+    <h4>Cadastro</h4><br/>
+    
+<form id="cadastro" class="container-fluid">
+
+	<input type="text" name="alt-1" id="nome" placeholder="nome" validate essential/><br/>
+	
+    <input type="text" name="alt-2" id="emaill" placeholder="emaill" validate essential/><br/>
+
+	<input type="password" name="alt-3" id="senha" placeholder="senha" validate essential/><br/>
+	
+	<button type="submit" onclick="return validar()">Cadastra</button>
+
+</form>
+</fieldset>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+	
+       	banco = localStorage.getItem('Salvo');
+	
+	if (banco!=null) {
+		banco = JSON.parse(banco);
+		
+		$("input[name='alt-1']").val();
+		$("input[name='alt-2']").val();
+		$("input[name='alt-3']").val();
+	}
+
+	$("button").on("click",function(e){
+		formulario = {
+			"cadastro": [
+				$("input[id='nome']").val(),
+				$("input[id='emaill']").val(),
+				$("input[id='senha']").val()
+			]
+			}
+		console.log(JSON.stringify(formulario));
+		
+		banco = localStorage.setItem('Salvo',JSON.stringify(formulario));
+		e.preventDefault();
+	});
+	
+</script>
