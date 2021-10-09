@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt">
-  <head> teste do teste testado e aprovado
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -394,5 +394,70 @@
         </script>
  
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   <script>
+
+    var db;
+    
+    function testarBrowser(){
+        window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        
+        if(!window.indexedDB){
+            console.log("Navegador não suporta o indexedDB");
+        }else{
+            console.log("Navegador suporta o indexedDB");
+        }
+    }
+    
+    function construirBD(){
+        const nomeBanco="professor";
+        var req = indexedDB.open(nomeBanco,2);
+        
+        
+        req.onupgradeneeded = function (event){
+            var db = event.target.result;
+            var objectStore = db.createObjectStore("professor",{keyPath: "id", autoIncrement:true});
+            console.log("Loja criada com sucesso")
+        }
+        
+        req.onsuccess = function (event) {
+            db=event.target.result;
+            console.log("Banco de Dados conectado com sucesso")
+            addDados();
+        }
+        
+        req.onerror = function (event) {
+            console.log("Houve algum tipo de problema")
+        }
+        
+    }
+    
+    
+    function addDados(){
+        var transacao = db.transaction(["professor"],"readwrite");
+        var objectStore = transacao.objectStore("professor");
+        objectStore.add({nome:"João",disciplina: [ {codigo:"bd",nome:"Banco de dados"}, {codigo:"lp",nome:"Linguagem de Programação"} ] })
+        console.log("registro inserido");
+    }
+    
+    function modeloDados(){
+        
+        var dados = [ 
+        {id:"001",nome:"João",disciplina: [ {codigo:"bd",nome:"Banco de dados"}, {codigo:"lp",nome:"Linguagem de Programação"} ] },
+        {id:"002",nome:"Maria", disciplina: [ {codigo: "mat",nome:"Matemática"}, {codigo:"est",nome:"Estatística"}]} 
+        ]
+        
+        dados.forEach(function (item,indice,array) {
+            console.log("Professor de Código: "+item.id)
+            console.log("Nome do Professor: "+item.nome)
+            
+            item.disciplina.forEach(function (item,indice,array) {
+                console.log("Disciplina: "+item.nome)
+            });
+        });
+    }
+    
+    construirBD();
+    
+    </script>
   </body>
 </html>
