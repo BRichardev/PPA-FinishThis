@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <h1>Hello, world!</h1>
+    <input type="text" id="nome" placeholder="nome" />
+    <input type="text" id="email" placeholder="email" />
+    <button id="cadastrar">adicionar ao BD</button>
+
+    <div id="dados">
+    </div>
+
+    <button id="ler">Ler do BD</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script>
+        var request = window.indexedDB.open("banco", 2);
+        request.onsuccess = (e) => {
+            bd = e.target.result;
+
+            transacao = bd.transaction(["usuarios"], "readwrite");
+            colecao = transacao.objectStore("usuarios");
+
+            item = {
+                "nome": "ricardo",
+                "email": "r@r.com"
+            }
+
+            pedido = colecao.add(item);
+
+            transacao.oncomplete = (e) => {
+                alert("inserido");
+            }
+        }
+
+        request.onupgradeneeded = (e) => {
+            bd = e.target.result;
+
+            if (bd.version == 1) {
+                var tabela = bd.createObjectStore("usuarios", {
+                    keyPath: "email"
+                });
+
+                tabela.createIndex("nome", "nome", { unique: false });
+            }
+            else if (bd.version == 2) {
+                /* código de mudancas da versao 2 */
+            }
+
+        }
+
+        $("#cadastrar").on("click", () => {
+            if (bd) {
+                transacao = bd.transaction(["usuarios"], "readwrite");
+                colecao = transacao.objectStore("usuarios");
+
+                item = {
+                    "nome": $("#nome").val(),
+                    "email": $("#email").val()
+                }
+
+                pedido = colecao.add(item);
+
+                transacao.oncomplete = (e) => {
+                    alert("inserido");
+                }
+            }
+            else
+                alert("aguarde");
+        });
+
+        $("#ler").on("click", (e) => {
+            $("#dados").html("");
+            if (bd) {
+                transacao = bd.transaction(["usuarios"], "readwrite");
+                colecao = transacao.objectStore("usuarios");
+
+                colecao.openCursor().onsuccess = (e) => {
+                    cursor = e.target.result;
+
+                    if (cursor) {
+                        nome = cursor.value.nome;
+                        email = cursor.value.email;
+
+                        $("#dados").append(
+                            `<div>
+								<div> Nome: ${nome} </div>
+								<div> Email: ${email} </div>
+								<button class='apagar' data-id='${email}'> Apagar </button>
+							</div>`
+                        );
+
+                        $(".apagar").on("click", (e) => {
+                            if (bd) {
+                                transacao = bd.transaction(["usuarios"], "readwrite");
+                                colecao = transacao.objectStore("usuarios");
+
+                                email = $(e.target).attr("data-id");
+                                console.log(email);
+                                pedido = colecao.delete(email);
+                                pedido.onsuccess = (e) => {
+                                    alert("apagado");
+                                }
+                            }
+                        });
+
+                        cursor.continue();
+                    }
+                }
+
+            }
+            else
+                alert("aguarde");
+
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>

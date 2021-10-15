@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Teste </title>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script>
+
+        var db;
+
+        function testeBrowser() {
+            window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+            if (!window.indexedDB) {
+                console.log("Seu navegador não suporta o indexedDB");
+                return false;
+            } else {
+                console.log("Seu navegador suporta o indexedDB");
+                return true;
+            }
+
+        }
+
+        function construirBd() {
+            const nomeBanco = "template632";
+            var req = indexedDB.open(nomeBanco, 1);
+
+            req.onupgradeneeded = function (event) {
+                var db = event.target.result;
+                var objectStore = db.createObjectStore("template632", { keypath: "idProfessor", autoIncrement: true });
+                console.log("Banco de Dados criado com sucesso")
+            };
+
+            req.onsuccess = function (event) {
+                db = event.target.result;
+                console.log("BD aberto com sucesso");
+                //addRegistro();
+                //listarRegistros();
+                listarPorNome("Maria");
+            };
+
+            req.onerror = function (event) {
+                console.log("Houve algum problema ao abrir o BD");
+            };
+        }
+
+        function addRegistro() {
+            //Variavel com referencia ao objectStore
+            var reg = db.transaction(["template632"], "readwrite").objectStore("template632");
+            //reg.add({nomeProfessor:"João", disciplina: [{codigo:"bd",nome:"Banco de Dados"},{codigo:"lp",nome:"Linguagem de Programação"}]})
+            reg.add({ nomeProfessor: "Francisco", disciplina: [{ codigo: "pt", nome: "Português" }, { codigo: "lit", nome: "Literatura" }] })
+            console.log("Registro adicionado com sucesso");
+        }
+
+        function listarRegistros() {
+            var reg = db.transaction(["template632"]).objectStore("template632");
+            var nomeProfessores = "";
+
+            reg.openCursor().onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    console.log("ID do Professor: " + cursor.key);
+                    console.log("Nome do Professor: " + cursor.value.nomeProfessor);
+                    nomeProfessores += "Nome Professor:" + cursor.value.nomeProfessor + " <br>";
+                    cursor.value.disciplina.forEach(function (item, indice, array) {
+                        console.log("Disciplina :" + item.nome);
+                    });
+                    cursor.continue();
+                } else {
+                    $("#professores").html(nomeProfessores);
+                }
+            }
+        }
+
+        function listarPorNome(nome) {
+            var reg = db.transaction(["template632"]).objectStore("template632");
+            var nomeProfessores = "";
+
+            reg.openCursor().onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (cursor.value.nomeProfessor == nome) {
+                        console.log("ID do Professor: " + cursor.key);
+                        console.log("Nome do Professor: " + cursor.value.nomeProfessor);
+                        nomeProfessores += "Nome Professor:" + cursor.value.nomeProfessor + " <br>";
+                        cursor.value.disciplina.forEach(function (item, indice, array) {
+                            console.log("Disciplina :" + item.nome);
+                        });
+                    }
+                    cursor.continue();
+                } else {
+                    $("#professores").html(nomeProfessores);
+                }
+            }
+        }
+
+
+
+
+
+
+        function modeloDados() {
+            var dados = [
+                { idProfessor: "001", nomeProfessor: "João", disciplina: [{ codigo: "bd", nome: "Banco de Dados" }, { codigo: "lp", nome: "Linguagem de Programação" }] },
+                { idProfessor: "002", nomeProfessor: "Maria", disciplina: [{ codigo: "mat", nome: "Matemática" }, { codigo: "est", nome: "Estatística" }] }
+            ];
+
+            dados.forEach(function (item, indice, array) {
+                console.log("ID Professor: " + item.idProfessor)
+                console.log("Nome :" + item.nomeProfessor)
+
+                item.disciplina.forEach(function (item, indice, array) {
+                    console.log("Disciplina :" + item.nome)
+                });
+            });
+
+        }
+
+
+
+        //testeBrowser();
+        construirBd();
+
+    </script>
+
+    <div id="professores"></div>
+
+</body>
+
+</html>
