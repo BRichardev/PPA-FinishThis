@@ -3,7 +3,7 @@
     
     $host = "addcosta-info-2.cvmcahk1ynui.us-east-2.rds.amazonaws.com";
     $db = "20212lp2";
-    $user = "professor";
+    $user = "201818360014";
     $password = "123";
     
     try {
@@ -11,7 +11,7 @@
     
     	$pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     
-        $usuarios = $pdo->query("select email,senha from public.usuario");
+        $usuarios = $pdo->query("select email,senha from 201818360014.Mercado");
 
         $email = $_POST["email"];
         $senha = $_POST["senha"];
